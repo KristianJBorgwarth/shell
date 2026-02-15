@@ -2,11 +2,6 @@
 # Zsh config 
 # =========================
 
-# Increase file watch limit
-ulimit -n 524288
-
-PROMPT_EOL_MARK=''
-
 # Enable profiling only when requested: # run: PROFPATH=1 zsh -i -c exit 
 [[ -n $PROFPATH ]] && zmodload zsh/zprof
 
@@ -16,10 +11,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 # zsh-autosuggestions 
-if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
+source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#56B6C2'
 zstyle ':completion:*' menu no
 
@@ -28,12 +20,13 @@ bindkey '^I' autosuggest-accept
 bindkey '^F' complete-word
 
 # PATH
+export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # oh-my-posh
 export OMP_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-posh"
-eval "$(oh-my-posh init zsh --config "$HOME/dotfiles/omp/material.omp.json")"
+eval "$(oh-my-posh init zsh --config "$HOME/private_projects/shell/themes/material.omp.json")"
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -61,5 +54,4 @@ alias dr='dunstctl reload 2>/dev/null || { pkill -x dunst; dunst --config "$HOME
 alias autorandr='PYTHONWARNINGS=ignore::SyntaxWarning /bin/autorandr'
 # Print profiling report only when enabled 
 [[ -n $PROFPATH ]] && zprof
-export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
